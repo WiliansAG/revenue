@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--MARGINS-->
+    <dimen name="margin_top_big">118dp</dimen>
+    <dimen name="margin_side_big">98dp</dimen>
+    <dimen name="margin_top_medium">30dp</dimen>
+    <dimen name="margin_side">19dp</dimen>
+<!--PADDINGS-->
+
+<!--STRING SIZES-->
+    <dimen name="font_size_big">70sp</dimen>
+    <dimen name="font_size_normal">14sp</dimen>
+    <dimen name="font_weight">900sp</dimen>
+</resources>

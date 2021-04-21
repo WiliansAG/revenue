@@ -1,3 +1,9 @@
 <resources>
+    <string name="facebook_app_id">234973301750484</string> <string name="fb_login_protocol_scheme">fb234973301750484</string>
+
     <string name="app_name">Revenue</string>
+    <string name="logo">Logo</string>
+    <string name="act_main_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at augue diam. Fusce ut ex at urna fringilla blandit.</string>
+    <string name="facebook_login">Sign in with Facebook</string>
+    <string name="google_login">Sign in with Google</string>
 </resources>
