@@ -1,11 +1,14 @@
 package com.example.revenue
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
+import com.example.revenue.navigation.NavigationActivity
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -23,11 +26,16 @@ class MainActivity : AppCompatActivity() {
     var callbackManager:CallbackManager?=null
     var mFireBaseAuth:FirebaseAuth?=null
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val GoogleLogin = findViewById<Button>(R.id.activity_main_btn_google)
+
+        GoogleLogin.setOnClickListener {
+            val intent = Intent(this, NavigationActivity::class.java)
+            startActivity(intent)
+        }
 
         callbackManager = CallbackManager.Factory.create()
         val loginFacebook = findViewById<LoginButton>(R.id.activity_main_btn_facebook)
