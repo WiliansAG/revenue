@@ -5,6 +5,7 @@
     <dimen name="margin_side_big">98dp</dimen>
     <dimen name="margin_top_medium">30dp</dimen>
     <dimen name="margin_side">19dp</dimen>
+    <dimen name="margin">15dp</dimen>
 <!--PADDINGS-->
 
 <!--STRING SIZES-->

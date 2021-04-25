@@ -7,4 +7,11 @@
     <string name="act_main_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at augue diam. Fusce ut ex at urna fringilla blandit.</string>
     <string name="facebook_login">Sign in with Facebook</string>
     <string name="google_login">Sign in with Google</string>
+
+<!--SEARCH RESULT-->
+    <string name="search_result_label">Resultados da busca</string>
+
+    <!--ERRORS-->
+    <string name="error_message">Error</string>
+    <string name="error_message_network">Erro de conexao</string>
 </resources>
