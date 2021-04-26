@@ -2,6 +2,8 @@ package com.example.revenue.search_result
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Filter
+import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.revenue.R
 import com.example.revenue.base.BaseActivity
 import com.example.revenue.data.models.RevenueModel
+import com.example.revenue.filter.FilterActivity
 import com.example.revenue.revenue.RevenueAdapter
 import com.example.revenue.revenue.SearchResultPresenter
+import java.lang.StringBuilder
 
 class SearchResultActivity : BaseActivity(), SearchResultContract.View {
     var rcv:RecyclerView?=null
@@ -20,23 +24,33 @@ class SearchResultActivity : BaseActivity(), SearchResultContract.View {
     var linearLayoutManager: LinearLayoutManager?=null
     var searchView:androidx.appcompat.widget.SearchView?=null
     var originalModel: MutableList<RevenueModel>?=null
-    var filtered: ArrayList<RevenueModel>?=null
+    var imgFilter: ImageView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
 
-        val queryResult = intent.getStringExtra("query")
         presenter = SearchResultPresenter(this)
-        presenter?.searches(this,queryResult)
 
+        var queryResult = intent.getStringExtra("query")
+        var intent = getIntent()
+        var filterResult = StringBuilder()
+
+
+        if(queryResult == null){
+            queryResult = "-"
+        }
+
+        presenter?.searches(this,queryResult, filterResult.toString())
+
+        imgFilter = findViewById(R.id.act_search_result_filter_btn);
         searchView = findViewById(R.id.act_search_result_search_view)
         searchView?.setOnQueryTextListener(object :SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView!!.clearFocus()
                 if (query != null) {
-                    presenter?.searches(applicationContext,query)
+                    presenter?.searches(applicationContext,query, filterResult.toString())
                 }
                 return false
             }
@@ -52,6 +66,7 @@ class SearchResultActivity : BaseActivity(), SearchResultContract.View {
         linearLayoutManager = LinearLayoutManager(this)
         rcv?.adapter = rcvAdapter
         rcv?.layoutManager = GridLayoutManager(this, 2)
+        setClick()
     }
 
     override fun onFailure(message: String?) {
@@ -69,5 +84,12 @@ class SearchResultActivity : BaseActivity(), SearchResultContract.View {
 
     override fun showError(messageRes: Int) {
         TODO("Not yet implemented")
+    }
+
+    fun setClick(){
+        imgFilter?.setOnClickListener {
+            var intent = Intent(this,FilterActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

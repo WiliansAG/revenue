@@ -17,12 +17,12 @@ class SearchResultPresenter(view: SearchResultActivity) :
         this.view = view
     }
 
-    override fun searches(context: Context?, query: String) {
+    override fun searches(context: Context?, query: String, filterResult: String) {
         if (view == null) {
             return
         }
         view!!.showProgress(true)
-        getRevenue(context, 1, listOf(""), query, object : RevenueCallback {
+        getRevenue(context, 1, filterResult, query, object : RevenueCallback {
             override fun onFailure(message: String) {
                 view!!.showProgress(false)
                 view!!.onFailure(message)
@@ -49,7 +49,7 @@ class SearchResultPresenter(view: SearchResultActivity) :
         if(view == null){
             return
         }
-        getRevenue(context, 1, listOf(""), "", object : RevenueCallback {
+        getRevenue(context, 1, "", "", object : RevenueCallback {
             override fun onFailure(message: String) {
                 view!!.showProgress(false)
                 view!!.onFailure(message)

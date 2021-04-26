@@ -10,7 +10,7 @@ import retrofit2.http.Query
 interface RevenueRequest {
     @GET("api/")
     fun revenue(@Query("p") page: Int,
-                @Query("i") ingredient: List<String>?,
+                @Query("i") ingredient: String?,
                 @Query("q") query: String?)
             : Call<ResponseBody?>?
 }

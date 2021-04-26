@@ -13,6 +13,6 @@ class RevenueContract {
 
     internal interface Presenter :
         IBasePresenter<View?> {
-        fun recepts(context: Context?,dummy:List<String>)
+        fun recepts(context: Context?,dummy:ArrayList<String>)
     }
 }

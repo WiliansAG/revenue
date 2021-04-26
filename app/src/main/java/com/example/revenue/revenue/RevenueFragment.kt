@@ -35,7 +35,7 @@ class RevenueFragment : BaseFragment(), RevenueContract.View{
         super.onCreate(savedInstanceState)
         dummy = Collections.emptyList()
         presenter = RevenuePresenter(this)
-        presenter?.recepts(context, listOf(""))
+        presenter?.recepts(context, listOf("") as java.util.ArrayList<String>)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +53,7 @@ class RevenueFragment : BaseFragment(), RevenueContract.View{
         searchView?.setOnCloseListener(object : SearchView.OnCloseListener,
             androidx.appcompat.widget.SearchView.OnCloseListener {
             override fun onClose(): Boolean {
-                presenter?.recepts(context, listOf(""))
+                presenter?.recepts(context, listOf("") as java.util.ArrayList<String>)
                 return false
             }
 

@@ -15,7 +15,7 @@ class SearchResultContract {
 
     internal interface Presenter :
         IBasePresenter<View?> {
-        fun searches(context: Context?, query: String)
+        fun searches(context: Context?, query: String, filterResult: String)
         fun getAll(context: Context?)
     }
 }
