@@ -22,9 +22,9 @@ import java.net.URLDecoder
 
 object GetRevenues {
      fun getRevenue(context: Context?, page: Int,ingredient: String,query: String,callback: RevenueCallback) {
-        RetrofitClient.getInstance()
-            .create(RevenueRequest::class.java)
-            .revenue(page,ingredient,query)
+        RetrofitClient.instance
+            ?.create(RevenueRequest::class.java)
+            ?.revenue(page,ingredient,query)
             ?.enqueue(object : Callback<ResponseBody?> {
                 override fun onResponse(
                     call: Call<ResponseBody?>,

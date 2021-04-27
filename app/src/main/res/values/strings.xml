@@ -8,6 +8,9 @@
     <string name="facebook_login">Sign in with Facebook</string>
     <string name="google_login">Sign in with Google</string>
 
+    <!--MAIN-->
+    <string name="hint_email">Digite seu email</string>
+    <string name="hint_password">Digite sua senha</string>
     <!--SEARCH RESULT-->
     <string name="search_result_label">Resultados da busca</string>
 

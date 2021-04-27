@@ -32,8 +32,8 @@ class FilterActivity : AppCompatActivity() {
         selectedList = StringBuilder()
         rcv = findViewById(R.id.act_filter_rcv)
         linearLayout = LinearLayoutManager(this)
-        rcvAdapter = FilterAdapter(FilterActivity(),ArrayList<String>(),{
-
+        rcvAdapter = FilterAdapter(FilterActivity(),ArrayList<String>(), {
+            Toast.makeText(applicationContext,"teste",Toast.LENGTH_LONG).show()
         })
 
         filterList?.add("onions")
@@ -58,6 +58,6 @@ class FilterActivity : AppCompatActivity() {
     }
 
      fun foo(item:String){
-        selectedList?.append(item+",")
+
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Typeface
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -35,6 +36,7 @@ class RevenueDetailsActivity: BaseActivity(), RevenueDetailsContract.View {
     var share:ImageView?=null
     var favorite:ImageView?=null
     var list:RevenueModel?=null
+    var back:ImageView?=null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +45,14 @@ class RevenueDetailsActivity: BaseActivity(), RevenueDetailsContract.View {
         list = intent.getSerializableExtra("bundle") as RevenueModel
         var ingredients = list?.ingredients?.split(",")
 
+        back = findViewById(R.id.act_revenue_detail_toolbar_back)
         banner = findViewById(R.id.act_revenue_details_image)
         recipeName = findViewById(R.id.act_revenue_details_recipe_name)
         share = findViewById(R.id.act_revenue_detail_share)
         favorite = findViewById(R.id.act_revenue_detail_favorite)
         presenter = RevenueDetailsPresenter(this)
 
+        back?.setOnClickListener { onBackPressed() }
         Picasso.get()
             .load(list?.thumbnail)
             .placeholder(R.color.black)

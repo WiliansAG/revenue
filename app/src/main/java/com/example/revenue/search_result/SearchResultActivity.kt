@@ -25,6 +25,7 @@ class SearchResultActivity : BaseActivity(), SearchResultContract.View {
     var searchView:androidx.appcompat.widget.SearchView?=null
     var originalModel: MutableList<RevenueModel>?=null
     var imgFilter: ImageView?=null
+    var back:ImageView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,10 @@ class SearchResultActivity : BaseActivity(), SearchResultContract.View {
         }
 
         presenter?.searches(this,queryResult, filterResult.toString())
+        back = findViewById(R.id.act_search_result_back)
+        back?.setOnClickListener {
+            onBackPressed()
+        }
 
         imgFilter = findViewById(R.id.act_search_result_filter_btn);
         searchView = findViewById(R.id.act_search_result_search_view)
