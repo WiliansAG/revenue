@@ -1,5 +1,6 @@
 package com.example.revenue.revenue
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -35,53 +36,22 @@ class RevenueFragment : BaseFragment(), RevenueContract.View{
         super.onCreate(savedInstanceState)
         dummy = Collections.emptyList()
         presenter = RevenuePresenter(this)
-        presenter?.recepts(context, listOf("") as java.util.ArrayList<String>)
+        presenter?.recepts(context, "")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchView = view?.findViewById(R.id.frg_revenue_search_bar)
+
 
 
         rcv = view?.findViewById(R.id.frg_revenue_rcv)
-        listAdapter = RevenueAdapter(this, ArrayList<RevenueModel>(),ArrayList<RevenueModel>())
+        listAdapter = RevenueAdapter(RevenueFragment(), ArrayList<RevenueModel>(),ArrayList<RevenueModel>())
         linearLayoutManager = LinearLayoutManager(context)
         rcv?.layoutManager = linearLayoutManager
         rcv?.adapter = listAdapter
 
-        searchView?.setOnCloseListener(object : SearchView.OnCloseListener,
-            androidx.appcompat.widget.SearchView.OnCloseListener {
-            override fun onClose(): Boolean {
-                presenter?.recepts(context, listOf("") as java.util.ArrayList<String>)
-                return false
-            }
 
-        })
-        searchView?.setOnQueryTextListener(object :SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchView!!.clearFocus()
-                if (query != null) {
-                    var filteredList = listAdapter?.getFilter(query)
-                    if(filteredList != null){
-                        val intent = Intent(context, SearchResultActivity::class.java)
-                        intent.putExtra("query",query)
-                        startActivity(intent)
-
-//                        listAdapter?.update(filteredList)
-                    }else{
-                        Toast.makeText(context,"Não foi encontrado",Toast.LENGTH_LONG).show()
-                    }
-                }
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-
-                return false
-            }
-        })
     }
 
     override fun onCreateView(
@@ -104,6 +74,10 @@ class RevenueFragment : BaseFragment(), RevenueContract.View{
 
     override fun showError(messageRes: Int) {
         Toast.makeText(context,"teste",Toast.LENGTH_LONG).show()
+    }
+
+    fun teste(): Context? {
+        return context
     }
 
 }

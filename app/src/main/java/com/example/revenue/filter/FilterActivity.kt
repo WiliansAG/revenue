@@ -32,7 +32,9 @@ class FilterActivity : AppCompatActivity() {
         selectedList = StringBuilder()
         rcv = findViewById(R.id.act_filter_rcv)
         linearLayout = LinearLayoutManager(this)
-        rcvAdapter = FilterAdapter(FilterActivity(),ArrayList<String>())
+        rcvAdapter = FilterAdapter(FilterActivity(),ArrayList<String>(),{
+
+        })
 
         filterList?.add("onions")
         filterList?.add("garlic")

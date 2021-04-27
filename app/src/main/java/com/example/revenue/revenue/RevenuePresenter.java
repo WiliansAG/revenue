@@ -7,7 +7,6 @@ import com.example.revenue.data.DataCallbacks.RevenueCallback;
 import com.example.revenue.data.DataManager.GetRevenues;
 import com.example.revenue.data.models.RevenueModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -19,7 +18,7 @@ public class RevenuePresenter extends BasePresenter<RevenueContract.View> implem
     }
 
     @Override
-    public void recepts(Context context, ArrayList<String> dummy) {
+    public void recepts(Context context, String dummy) {
         if(view == null){
             return;
         }

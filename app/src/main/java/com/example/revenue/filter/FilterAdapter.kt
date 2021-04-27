@@ -9,7 +9,8 @@ import com.example.revenue.R
 
 class FilterAdapter(
         private  val context:FilterActivity,
-        private val model: ArrayList<String>
+        private val model: ArrayList<String>,
+        private val onClick: (teste: String) -> Unit
     ) : RecyclerView.Adapter<FilterAdapter.FilterHolder>()
 {
     var mContext = context
@@ -36,7 +37,7 @@ class FilterAdapter(
 
     override fun onBindViewHolder(holder: FilterAdapter.FilterHolder, position: Int) {
         holder.check.setText(model.get(position))
-
+        onClick.invoke("teste")
         holder.itemView.setOnClickListener{
             mContext.selectedList?.append(model.get(position))
         }
