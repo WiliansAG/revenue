@@ -20,22 +20,27 @@ class FilterActivity : AppCompatActivity() {
     var linearLayout:LinearLayoutManager?=null
     var rcvAdapter:FilterAdapter?=null
     var filterList:ArrayList<String>?=null
-     var selectedList:StringBuilder?=null
+    var selectedList:ArrayList<String>?=null
     var confirmFilter:ImageView?=null
+    var back: ImageView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter)
 
         confirmFilter = findViewById(R.id.act_filter_toolbar_confirm)
+        back = findViewById(R.id.act_filter_toolbar_back)
         filterList = ArrayList()
-        selectedList = StringBuilder()
+        selectedList = ArrayList()
         rcv = findViewById(R.id.act_filter_rcv)
         linearLayout = LinearLayoutManager(this)
-        rcvAdapter = FilterAdapter(FilterActivity(),ArrayList<String>(), {
-            Toast.makeText(applicationContext,"teste",Toast.LENGTH_LONG).show()
-        })
 
+        rcvAdapter = FilterAdapter(FilterActivity(),ArrayList<String>(), {
+            selectedList?.add(it)
+        })
+        back?.setOnClickListener {
+            onBackPressed()
+        }
         filterList?.add("onions")
         filterList?.add("garlic")
         filterList?.add("hot sauce")
@@ -51,8 +56,7 @@ class FilterActivity : AppCompatActivity() {
         confirmFilter?.setOnClickListener {
             var intent = Intent(this,SearchResultActivity::class.java)
             var teste = selectedList
-
-            intent.putExtra("filterResult",selectedList.toString())
+            intent.putExtra("filterResult",selectedList)
             startActivity(intent)
         }
     }

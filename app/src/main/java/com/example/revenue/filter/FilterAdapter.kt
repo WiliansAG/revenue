@@ -25,6 +25,7 @@ class FilterAdapter(
 
         init {
             check = itemView.findViewById(R.id.adp_filter_checkbok)
+
         }
 
     }
@@ -32,12 +33,7 @@ class FilterAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.adapter_filter, parent, false)
-        itemView.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(view: View?) {
-                onClick.invoke("teste")
-            }
 
-        })
         return FilterHolder(itemView)
     }
 
@@ -47,7 +43,12 @@ class FilterAdapter(
 
     override fun onBindViewHolder(holder: FilterHolder, position: Int) {
         holder.check.setText(model.get(position))
+        holder.check.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
+                onClick.invoke(model.get(position))
+            }
 
+        })
     }
     fun update(itemList: ArrayList<String>) {
         model.clear()

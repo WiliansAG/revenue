@@ -34,13 +34,27 @@ class SearchResultActivity : BaseActivity(), SearchResultContract.View {
         presenter = SearchResultPresenter(this)
 
         var queryResult = intent.getStringExtra("query")
+        var filterResultList = intent.getStringArrayListExtra("filterResult")
         var intent = getIntent()
         var filterResult = StringBuilder()
-
 
         if(queryResult == null){
             queryResult = "-"
         }
+
+        if(filterResultList != null){
+            filterResultList.forEachIndexed{index,element ->
+                if(index == filterResultList.size-1){
+                    filterResult.append(element)
+                }else{
+                    filterResult.append(element+",")
+                }
+
+            }
+            presenter?.searches(this,queryResult, filterResult.toString())
+        }
+
+
 
         presenter?.searches(this,queryResult, filterResult.toString())
         back = findViewById(R.id.act_search_result_back)
