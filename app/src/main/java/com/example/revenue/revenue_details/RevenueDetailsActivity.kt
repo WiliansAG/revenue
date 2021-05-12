@@ -2,14 +2,13 @@ package com.example.revenue.revenue_details
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Typeface
-import android.media.Image
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,8 +33,10 @@ class RevenueDetailsActivity: BaseActivity(), RevenueDetailsContract.View {
     var recipeName: TextView?=null
     var presenter:RevenueDetailsPresenter?=null
     var share:ImageView?=null
+    var unfavorite:ImageView?=null
     var favorite:ImageView?=null
     var list:RevenueModel?=null
+    var keyList:String?=null
     var back:ImageView?=null
 
 
@@ -49,6 +50,7 @@ class RevenueDetailsActivity: BaseActivity(), RevenueDetailsContract.View {
         banner = findViewById(R.id.act_revenue_details_image)
         recipeName = findViewById(R.id.act_revenue_details_recipe_name)
         share = findViewById(R.id.act_revenue_detail_share)
+        unfavorite = findViewById(R.id.act_revenue_detail_unfavorite)
         favorite = findViewById(R.id.act_revenue_detail_favorite)
         presenter = RevenueDetailsPresenter(this)
 
@@ -72,16 +74,35 @@ class RevenueDetailsActivity: BaseActivity(), RevenueDetailsContract.View {
             Context.MODE_PRIVATE
         )
 
-        favorite?.setOnClickListener {
-            val ref = FirebaseDatabase.getInstance().getReference("recipes")
-            val id = ref.push().key
-            ref.child(id!!).setValue(list).addOnCompleteListener{
-                Toast.makeText(applicationContext,"Saved",Toast.LENGTH_LONG).show()
+
+            unfavorite?.setOnClickListener {
+                val ref = FirebaseDatabase.getInstance().getReference("recipes")
+                val id = ref.push().key
+                ref.child(id!!).setValue(list).addOnCompleteListener{
+                    Toast.makeText(applicationContext,"Saved",Toast.LENGTH_LONG).show()
+                    unfavorite?.visibility = View.GONE
+                    favorite?.visibility = View.VISIBLE
+                }
+
             }
-            //verifyFavorite()
-        }
 
 
+
+            favorite?.setOnClickListener {
+                val ref = FirebaseDatabase.getInstance().getReference("recipes")
+                val id = ref.push().key
+                ref.child(keyList!!).setValue(null).addOnCompleteListener{
+                    Toast.makeText(applicationContext,"Removed",Toast.LENGTH_LONG).show()
+                    unfavorite?.visibility = View.VISIBLE
+                    favorite?.visibility = View.GONE
+                }
+
+            }
+
+
+
+
+        verifyFavorite()
         rcv = findViewById(R.id.act_revenue_details_rcv_ingredients)
         rcvAdapter = RevenueDAdapter(this, ArrayList<String>())
         rcv?.adapter = rcvAdapter
@@ -123,9 +144,10 @@ class RevenueDetailsActivity: BaseActivity(), RevenueDetailsContract.View {
                     for(l in snapshot.children){
                         val itemDB = l.getValue(RevenueModel::class.java)
                         if(itemDB?.title == list?.title){
-                            ref.child(id!!).setValue(null).addOnCompleteListener {
-                                Toast.makeText(applicationContext,"REMOVIDO",Toast.LENGTH_LONG).show()
-                            }
+                            keyList = l.key!!
+                            unfavorite?.visibility = View.GONE
+                            favorite?.visibility = View.VISIBLE
+                            break
                         }
                     }
                 }else{
