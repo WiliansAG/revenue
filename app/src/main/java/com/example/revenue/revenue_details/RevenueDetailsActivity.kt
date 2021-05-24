@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.revenue.R
 import com.example.revenue.base.BaseActivity
 import com.example.revenue.data.models.RevenueModel
+import com.example.revenue.utils.PreferencesManeger
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -38,14 +39,14 @@ class RevenueDetailsActivity: BaseActivity(), RevenueDetailsContract.View {
     var list:RevenueModel?=null
     var keyList:String?=null
     var back:ImageView?=null
-
+    var pref:PreferencesManeger?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_revenue_details)
         list = intent.getSerializableExtra("bundle") as RevenueModel
         var ingredients = list?.ingredients?.split(",")
-
+        pref = PreferencesManeger(this)
         back = findViewById(R.id.act_revenue_detail_toolbar_back)
         banner = findViewById(R.id.act_revenue_details_image)
         recipeName = findViewById(R.id.act_revenue_details_recipe_name)
@@ -69,15 +70,14 @@ class RevenueDetailsActivity: BaseActivity(), RevenueDetailsContract.View {
             intent.type="text/plain"
             startActivity(Intent.createChooser(intent,"Share To:"))
         }
-        val pref = applicationContext.getSharedPreferences(
-            "MyPref",
-            Context.MODE_PRIVATE
-        )
+
 
 
             unfavorite?.setOnClickListener {
                 val ref = FirebaseDatabase.getInstance().getReference("recipes")
                 val id = ref.push().key
+                pref?.saveFavorite(list!!)
+                pref?.getFavorite()
                 ref.child(id!!).setValue(list).addOnCompleteListener{
                     Toast.makeText(applicationContext,"Saved",Toast.LENGTH_LONG).show()
                     unfavorite?.visibility = View.GONE
@@ -151,6 +151,7 @@ class RevenueDetailsActivity: BaseActivity(), RevenueDetailsContract.View {
                         }
                     }
                 }else{
+
                     ref.child(id!!).setValue(list).addOnCompleteListener{
                         Toast.makeText(applicationContext,"Saved",Toast.LENGTH_LONG).show()
                     }

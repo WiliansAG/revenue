@@ -16,6 +16,7 @@ import com.example.revenue.R
 import com.example.revenue.base.BaseFragment
 import com.example.revenue.data.models.RevenueModel
 import com.example.revenue.search_result.SearchResultActivity
+import com.example.revenue.utils.PreferencesManeger
 import kotlinx.android.synthetic.main.fragment_revenue.*
 import java.io.Console
 import java.util.*
@@ -31,12 +32,14 @@ class RevenueFragment : BaseFragment(), RevenueContract.View{
     var savedModel:MutableList<RevenueModel>?=null
     var presenter:RevenuePresenter?=null
     var dummy:List<String>?=null
+    var pref:PreferencesManeger?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dummy = Collections.emptyList()
         presenter = RevenuePresenter(this)
         presenter?.recepts(context, "")
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
